@@ -33,6 +33,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": "vitest watch",
+    "test:unit": "vitest",
     "test:no-watch": "vitest run",
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write src/**/*.ts{,x}",
