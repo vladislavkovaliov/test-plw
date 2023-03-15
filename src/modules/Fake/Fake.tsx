@@ -2,6 +2,7 @@ import { useLocalStore } from "mobx-react";
 import { useService, useStore } from "../../hooks";
 import { FakeLocalStore } from "./FakeLocalStore";
 import { Text } from "../../components";
+import { HandlersManagerProvider } from "../../core/HandlerManager";
 
 function Fake() {
     const appService = useService("AppService");
@@ -13,9 +14,25 @@ function Fake() {
     console.log(fakeStore);
 
     return (
-        <div>
-            <Text />
-        </div>
+        <HandlersManagerProvider
+            handlers={{
+                mounted: [
+                    () => {
+                        console.log("<Text /> is mounted 1");
+                    },
+                    () => {
+                        console.log("<Text /> is mounted 2");
+                    },
+                ],
+                fakeModuleMounted: (arg) => {
+                    console.log(arg);
+                },
+            }}
+        >
+            <div>
+                <Text />
+            </div>
+        </HandlersManagerProvider>
     );
 }
 
