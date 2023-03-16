@@ -47,6 +47,7 @@ export function RenderApp() {
                 services: services,
                 featureFlags: featureFlags,
             };
+
             setInitialized(true);
         };
 
