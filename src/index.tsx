@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { createRoot } from "react-dom/client";
 import { Provider } from "mobx-react";
 import "./index.css";
 import App from "./App";
@@ -8,31 +8,67 @@ import reportWebVitals from "./reportWebVitals";
 import createGlobalServices from "./services/utils/createGlobalServices";
 import createGlobalStores from "./stores/utils/createGlobalStores";
 
-export function initialize() {
+import { FeatureFlagProvider } from "./core/FeatureFlagManager/FeatureFlagProvider";
+
+export function initialize(): Promise<any> {
     const transport = {};
 
     const stores = createGlobalStores(transport);
     const services = createGlobalServices();
-
-    return {
-        stores: stores,
-        services: services,
+    const featureFlags = () => {
+        return {
+            feature1: true,
+        };
     };
+
+    const promise = new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                stores: stores,
+                services: services,
+                featureFlags: featureFlags,
+            });
+        }, 1000);
+    });
+
+    return promise;
 }
 
-export function renderApp() {
-    const { stores, services } = initialize();
+export function RenderApp() {
+    const [initialized, setInitialized] = useState(false);
+    const ref = useRef<any>();
 
-    return (
-        <Provider stores={stores} services={services}>
+    useEffect(() => {
+        const initializeAsync = async () => {
+            const { stores, services, featureFlags } = await initialize();
+
+            ref.current = {
+                stores: stores,
+                services: services,
+                featureFlags: featureFlags,
+            };
+            setInitialized(true);
+        };
+
+        initializeAsync();
+    }, []);
+
+    return initialized ? (
+        <Provider stores={ref.current.stores} services={ref.current.services}>
             <React.StrictMode>
-                <App />
+                <FeatureFlagProvider
+                    initialFeatureFlags={ref.current.featureFlags}
+                >
+                    <App />
+                </FeatureFlagProvider>
             </React.StrictMode>
         </Provider>
+    ) : (
+        <div>loading</div>
     );
 }
 
-ReactDOM.render(renderApp(), document.getElementById("root"));
+createRoot(document.getElementById("root")!).render(<RenderApp />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

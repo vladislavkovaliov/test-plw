@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useService, useStore } from "./hooks";
 import { FakeModule } from "./modules";
+
+import { useFeatureFlags } from "./core/FeatureFlagManager/hooks";
+import { FeatureFlag } from "./core/FeatureFlagManager/FeatureFlag";
 
 function App() {
     const appService = useService("AppService");
     const appStore = useStore("AppStore");
-    console.log(appService, appStore);
+    const { flags } = useFeatureFlags();
+
+    console.log(appService, appStore, flags);
 
     return (
         <div>
