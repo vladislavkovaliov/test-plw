@@ -11,6 +11,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "autoprefixer": "^10.4.13",
+    "i18nano": "^3.0.1",
     "lodash-fp": "^0.10.4",
     "mobx": "^6.7.0",
     "mobx-react": "^7.6.0",

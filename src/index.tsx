@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import {
+    TranslationProvider,
+    useTranslationChange,
+    useTranslation,
+} from "i18nano";
 import { createRoot } from "react-dom/client";
 import { Provider } from "mobx-react";
 import "./index.css";
@@ -9,24 +14,24 @@ import createGlobalServices from "./services/utils/createGlobalServices";
 import createGlobalStores from "./stores/utils/createGlobalStores";
 
 import { FeatureFlagProvider } from "./core/FeatureFlagManager/FeatureFlagProvider";
+import { getLocales } from "./locales";
+import { getDefaultFeatureFlags } from "./defaultFeatureFlags";
 
-export function initialize(): Promise<any> {
+export async function initialize(): Promise<any> {
     const transport = {};
 
     const stores = createGlobalStores(transport);
     const services = createGlobalServices();
-    const featureFlags = () => {
-        return {
-            feature1: true,
-        };
-    };
+    const featureFlags = await getDefaultFeatureFlags();
+    const translations = await getLocales();
 
-    const promise = new Promise((resolve) => {
+    const promise = new Promise(async (resolve) => {
         setTimeout(() => {
             resolve({
                 stores: stores,
                 services: services,
                 featureFlags: featureFlags,
+                translations: translations,
             });
         }, 1000);
     });
@@ -40,12 +45,14 @@ export function RenderApp() {
 
     useEffect(() => {
         const initializeAsync = async () => {
-            const { stores, services, featureFlags } = await initialize();
+            const { stores, services, featureFlags, translations } =
+                await initialize();
 
             ref.current = {
                 stores: stores,
                 services: services,
                 featureFlags: featureFlags,
+                translations: translations,
             };
 
             setInitialized(true);
@@ -60,7 +67,12 @@ export function RenderApp() {
                 <FeatureFlagProvider
                     initialFeatureFlags={ref.current.featureFlags}
                 >
-                    <App />
+                    <TranslationProvider
+                        language="en"
+                        translations={ref.current.translations}
+                    >
+                        <App />
+                    </TranslationProvider>
                 </FeatureFlagProvider>
             </React.StrictMode>
         </Provider>

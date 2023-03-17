@@ -19,4 +19,5 @@ export default defineConfig({
         },
     },
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+	base: "./",
 });
