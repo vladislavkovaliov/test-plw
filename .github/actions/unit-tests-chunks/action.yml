@@ -1,0 +1,8 @@
+name: Run unit test
+description: "Just run unit tests. (TODO: parallels them)"
+runs:
+  using: "composite"
+  steps:
+    - name: "Run unit test"
+      run: npm run test:unit
+      shell: bash

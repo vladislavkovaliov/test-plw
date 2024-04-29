@@ -1,0 +1,13 @@
+name: Run install deps
+description: "Install node version"
+runs:
+  using: "composite"
+  steps:
+    - name: "Install Node"
+      uses: actions/setup-node@v2
+      with:
+          node-version: "20.x"
+
+    - name: "Install Deps"
+      run: npm ci
+      shell: bash

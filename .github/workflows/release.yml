@@ -1,0 +1,32 @@
+name: "Semantic Release"
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  release:
+    name: Run release
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run npm install
+        uses: ./.github/actions/install-deps
+
+      - name: "Run semantic release"
+      - run: npm ci
+      - run: npx semantic-release
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE }}
+
+
+
