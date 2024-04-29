@@ -1,3 +1,1 @@
-export class MockStore {
-    public constructor() {}
-}
+export class MockStore {}

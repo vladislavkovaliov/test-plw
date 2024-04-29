@@ -1,7 +1,7 @@
-import { Stores } from './stores/types';
-import { Services } from './services/types';
+import { Stores } from "src/stores/types";
+import { Services } from "src/services/types";
 
 export interface AppOptions {
-  services: Services;
-  stores: Stores;
+    services: Services;
+    stores: Stores;
 }

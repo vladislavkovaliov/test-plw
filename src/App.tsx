@@ -1,6 +1,6 @@
 import React from "react";
-import { useService, useStore } from "./hooks";
-import { FakeModule } from "./modules";
+import { useService, useStore } from "src/hooks";
+import { FakeModule } from "src/modules";
 
 function App() {
     const appService = useService("AppService");

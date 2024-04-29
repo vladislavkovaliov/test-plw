@@ -1,3 +1,1 @@
-export class AppService {
-    public constructor() {}
-}
+export class AppService {}

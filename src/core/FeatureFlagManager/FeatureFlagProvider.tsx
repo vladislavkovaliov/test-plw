@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { FeatureFlagContext } from "./FeatureFlagContext";
-import { IFeatureFlagManagerProviderProps } from "./types";
+import { FeatureFlagContext } from "src/core/FeatureFlagManager/FeatureFlagContext";
+import { IFeatureFlagManagerProviderProps } from "src/core/FeatureFlagManager/types";
 
 export function FeatureFlagProvider({
     children,
@@ -10,14 +10,14 @@ export function FeatureFlagProvider({
 
     const handleUpdateFeatureFlag = useCallback(
         (featureFlagName: string, value: boolean) => {
-            if (flags.hasOwnProperty(featureFlagName)) {
+            if (flags[featureFlagName]) {
                 setFlags({
                     ...flags,
                     [featureFlagName]: value,
                 });
             }
         },
-        [flags]
+        [flags],
     );
 
     return (

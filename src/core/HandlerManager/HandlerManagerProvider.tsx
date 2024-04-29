@@ -1,7 +1,11 @@
 import React, { useCallback } from "react";
 
-import { HandlersManagerContext } from "./HandlerManagerContext";
-import { EventId, CallEventExtaArguments, AnyFunction } from "../types";
+import { HandlersManagerContext } from "src/core/HandlerManager/HandlerManagerContext";
+import {
+    EventId,
+    CallEventExtaArguments,
+    AnyFunction,
+} from "src/core/HandlerManager/types";
 
 export interface IHandlerManagerProvider {
     children: JSX.Element;
@@ -28,7 +32,7 @@ export const HandlersManagerProvider: React.FC<IHandlerManagerProvider> = ({
                 return;
             }
         },
-        [handlers]
+        [handlers],
     );
 
     const handleCallEventOnceCallback = useCallback(
@@ -37,7 +41,7 @@ export const HandlersManagerProvider: React.FC<IHandlerManagerProvider> = ({
 
             delete handlers[id];
         },
-        [handlers, handleCallEventCallback]
+        [handlers, handleCallEventCallback],
     );
 
     return (

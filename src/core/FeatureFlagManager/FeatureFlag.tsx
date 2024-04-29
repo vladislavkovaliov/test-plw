@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFeatureFlags } from "./hooks";
+import { useFeatureFlags } from "src/core/FeatureFlagManager/hooks";
 
 export interface IFeatureFlagProps {
     children: JSX.Element;
@@ -14,7 +14,7 @@ export function FeatureFlag({ children, name, override }: IFeatureFlagProps) {
         if (override) {
             updateFeatureFlag(override.name, override.value);
         }
-    }, []);
+    }, [updateFeatureFlag, override]);
 
     return flags[name] ? children : null;
 }

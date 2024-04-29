@@ -1,1 +1,1 @@
-export { FakeModule } from "./Fake/Fake";
+export { FakeModule } from "src/modules/Fake/Fake";

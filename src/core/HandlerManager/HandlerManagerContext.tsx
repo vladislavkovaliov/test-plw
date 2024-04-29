@@ -1,6 +1,10 @@
-import React, { useCallback } from "react";
+import React from "react";
 
-import { AnyFunction, EventId, CallEventExtaArguments } from "../types";
+import {
+    AnyFunction,
+    EventId as _EventId,
+    CallEventExtaArguments as _CallEventExtaArguments,
+} from "src/core/HandlerManager/types";
 
 // TODO: import lodash or defined it in utils
 const noop = () => undefined;

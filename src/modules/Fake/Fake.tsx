@@ -1,14 +1,14 @@
 import { useLocalStore } from "mobx-react";
-import { useService, useStore } from "../../hooks";
+import { useService, useStore } from "src/hooks";
 import { FakeLocalStore } from "./FakeLocalStore";
-import { Text } from "../../components";
-import { HandlersManagerProvider } from "../../core/HandlerManager";
+import { Text } from "src/components";
+import { HandlersManagerProvider } from "src/core/HandlerManager";
 
 function Fake() {
     const appService = useService("AppService");
     const appStore = useStore("AppStore");
     const fakeStore = useLocalStore(
-        () => new FakeLocalStore(appStore, appService)
+        () => new FakeLocalStore(appStore, appService),
     );
 
     console.log(fakeStore);

@@ -1,4 +1,4 @@
 import React from "react";
-import { FeatureFlagContext } from "./FeatureFlagContext";
+import { FeatureFlagContext } from "src/core/FeatureFlagContext";
 
 export const useFeatureFlags = () => React.useContext(FeatureFlagContext);

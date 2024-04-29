@@ -1,18 +1,16 @@
-import * as stores from "../";
-import { ModuleStores, StoreName, Stores } from "../types";
+import * as stores from "src/stores";
+import { ModuleStores, StoreName, Stores } from "src/stores/types";
 
 export function createGlobalStores(globalStores: ModuleStores, transport: any) {
-  return Object
-    .keys(globalStores)
-    .reduce(
-      // @ts-ignore
-      (table: Stores, name: StoreName) => {
-        // @ts-ignore
-        table[name] = new globalStores[name](transport);
+    return Object.keys(globalStores).reduce(
+        // @ts-expect-error Need to build stores object
+        (table: Stores, name: StoreName) => {
+            // @ts-expect-error Need to build stores object
+            table[name] = new globalStores[name](transport);
 
-        return table;
-      },
-      {} as Stores,
+            return table;
+        },
+        {} as Stores,
     );
 }
 

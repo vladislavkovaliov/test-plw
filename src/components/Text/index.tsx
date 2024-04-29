@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from "react";
-import { useHandlesManager } from "../../core/HandlerManager/hooks";
+import { useHandlesManager } from "src/core/HandlerManager/hooks";
 
-import styles from "./Text.module.scss";
+import styles from "./styles.module.css";
 
 export function Text() {
-    const { callEvent, callEventOnce } = useHandlesManager();
-
+    const { callEvent } = useHandlesManager();
+    console.log({ styles });
     useEffect(() => {
         // callEventOnce("mounted");
         // callEvent("fakeModuleMounted", { hello: 42 });
@@ -13,7 +13,7 @@ export function Text() {
 
     const handleOnClickCallback = useCallback(() => {
         callEvent("mounted");
-    }, []);
+    }, [callEvent]);
 
     return <button onClick={handleOnClickCallback}>click</button>;
 }

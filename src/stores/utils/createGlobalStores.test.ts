@@ -1,15 +1,17 @@
-import { createGlobalStores } from "./createGlobalStores";
-import { MockStore } from "../MockStore";
-import { ModuleStores } from "../types";
+import { describe, test, expect } from "vitest";
+
+import { createGlobalStores } from "src/stores/utils/createGlobalStores";
+import { MockStore } from "src/stores/MockStore";
+import { ModuleStores } from "src/stores/types";
 
 describe("[createGlobalStores.ts]", () => {
-    it("should return global stores object with mock store", () => {
+    test("should return global stores object with mock store", () => {
         const stores = {
             MockStore: MockStore,
         } as unknown as ModuleStores;
 
         const result = createGlobalStores(stores, {});
 
-        expect(result).toHaveProperty("MockStore");
+        expect(result).property("MockStore");
     });
 });

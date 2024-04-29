@@ -1,1 +1,1 @@
-export { AppService } from "./AppService";
+export { AppService } from "src/services/AppService";

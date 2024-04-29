@@ -1,4 +1,4 @@
-import * as services from "./";
+import * as services from "src/services";
 
 export type ServiceClass<T> = new () => T;
 
@@ -11,10 +11,10 @@ export type DisposableServiceInstance<T> = {
 
 export type Services = {
     [key in ServiceName]: DisposableServiceInstance<
-        InstanceType<typeof services[key]>
+        InstanceType<(typeof services)[key]>
     >;
 };
 
 export type ModuleServices = {
-    [key in ServiceName]: ServiceClass<typeof services[key]["prototype"]>;
+    [key in ServiceName]: ServiceClass<(typeof services)[key]["prototype"]>;
 };
