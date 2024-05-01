@@ -62,12 +62,13 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "autoprefixer": "^10.4.13",
-    "i18nano": "^3.0.1",
+    "i18next": "^23.11.3",
     "mobx": "^6.7.0",
     "mobx-react": "^7.6.0",
     "postcss": "^8.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.1",
     "react-router-dom": "^6.20.1",
     "tailwindcss": "^3.2.4",
     "typescript": "^5.4.0",
@@ -77,6 +78,7 @@
     "web-vitals": "^3.1.0"
   },
   "devDependencies": {
+    "@types/i18next": "^13.0.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",

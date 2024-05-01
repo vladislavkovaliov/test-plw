@@ -42,5 +42,8 @@
   ],
   "rootTypes": [
     "./node_modules/@types/*"
+  ],
+  "types": [
+    "src/i18next.d.ts"
   ]
 }

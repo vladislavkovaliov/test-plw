@@ -1,8 +1,9 @@
 import { useLocalStore } from "mobx-react";
 import { useService, useStore } from "src/hooks";
-import { FakeLocalStore } from "./FakeLocalStore";
 import { Text } from "src/components";
 import { HandlersManagerProvider } from "src/core/HandlerManager";
+
+import { FakeLocalStore } from "./FakeLocalStore";
 
 function Fake() {
     const appService = useService("AppService");

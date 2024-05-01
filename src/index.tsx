@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { TranslationProvider } from "i18nano";
 import { createRoot } from "react-dom/client";
 import { Provider } from "mobx-react";
 import "./index.css";
@@ -10,16 +9,17 @@ import createGlobalServices from "src/services/utils/createGlobalServices";
 import createGlobalStores from "src/stores/utils/createGlobalStores";
 
 import { FeatureFlagProvider } from "src/core/FeatureFlagManager/FeatureFlagProvider";
-import { getLocales } from "src/locales";
 import { getDefaultFeatureFlags } from "src/defaultFeatureFlags";
+
+import "src/i18n/config";
 
 export async function initialize(): Promise<any> {
     const transport = {};
-    console.log(42);
+
     const stores = createGlobalStores(transport);
     const services = createGlobalServices();
+
     const featureFlags = await getDefaultFeatureFlags();
-    const translations = await getLocales();
 
     const promise = new Promise((resolve) => {
         setTimeout(() => {
@@ -27,7 +27,6 @@ export async function initialize(): Promise<any> {
                 stores: stores,
                 services: services,
                 featureFlags: featureFlags,
-                translations: translations,
             });
         }, 1000);
     });
@@ -41,14 +40,12 @@ export function RenderApp() {
 
     useEffect(() => {
         const initializeAsync = async () => {
-            const { stores, services, featureFlags, translations } =
-                await initialize();
+            const { stores, services, featureFlags } = await initialize();
 
             ref.current = {
                 stores: stores,
                 services: services,
                 featureFlags: featureFlags,
-                translations: translations,
             };
 
             setInitialized(true);
@@ -60,12 +57,7 @@ export function RenderApp() {
     return initialized ? (
         <Provider stores={ref.current.stores} services={ref.current.services}>
             <FeatureFlagProvider initialFeatureFlags={ref.current.featureFlags}>
-                <TranslationProvider
-                    language="en"
-                    translations={ref.current.translations}
-                >
-                    <App />
-                </TranslationProvider>
+                <App />
             </FeatureFlagProvider>
         </Provider>
     ) : (
