@@ -1,0 +1,26 @@
+name: "Run vitest with coverage report"
+on:
+  pull_request:
+
+jobs:
+  unit-tests:
+    name: Run unit test
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Required checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
+
+    steps:
+      - name: Checkout the commit
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Run npm install
+        uses: ./.github/actions/install-deps
+
+      - name: Run unit test
+        uses: ./.github/actions/unit-tests-coverage-chunks

@@ -1,0 +1,12 @@
+name: Run unit test with coverage
+description: "Just run unit tests. (TODO: parallels them)"
+runs:
+  using: "composite"
+  steps:
+    - name: "Run unit test with coverage"
+      run: npm run test:coverage
+      shell: bash
+
+    - name: "Report Coverage"
+      if: ${{ github.ref != 'refs/heads/main' }}
+      uses: davelosert/vitest-coverage-report-action@v2
